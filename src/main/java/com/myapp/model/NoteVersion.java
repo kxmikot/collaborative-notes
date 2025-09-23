@@ -1,7 +1,7 @@
 package com.myapp.model;
 import java.time.LocalDateTime;
 
-public class NoteVersion { 
+public class NoteVersion { // New class for NoteVersion entity
     private int id;
     private int noteId;
     private String content;
@@ -14,7 +14,7 @@ public class NoteVersion {
         this.createdAt = createdAt;
     }
     
-    public NoteVersion(int noteId, String content) {
+    public NoteVersion(int noteId, String content) { // Constructor without id for new versions
         this(-1, noteId, content, LocalDateTime.now());
     }
 

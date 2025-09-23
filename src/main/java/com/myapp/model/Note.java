@@ -1,6 +1,6 @@
 package com.myapp.model;
 
-public class Note {
+public class Note { // New Note model class
     private int id;
     private int userId;
     private String title;
@@ -13,7 +13,7 @@ public class Note {
         this.content = content;
     }
 
-    public Note(int userId, String title, String content) {
+    public Note(int userId, String title, String content) { // Constructor without id for new notes
         this(-1, userId, title, content);
     }
 

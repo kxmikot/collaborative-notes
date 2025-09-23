@@ -1,6 +1,6 @@
 package com.myapp.model;
 
-public class User {
+public class User { // User model class
     private int id;
     private String username;
     private String password;
@@ -11,7 +11,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String password) {
+    public User(String username, String password) { // Constructor without id for new users
         this(-1, username, password);
     }
 
