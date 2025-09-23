@@ -17,7 +17,7 @@ public class UserDAO {
         }
     }
 
-    public void addUser(User user) {
+    public static void addUser(User user) {
         String sql = "INSERT INTO users(username, password) VALUES(?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
