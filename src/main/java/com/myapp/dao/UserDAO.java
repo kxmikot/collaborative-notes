@@ -3,7 +3,7 @@ package com.myapp.dao;
 import com.myapp.model.User;
 import java.sql.*;
 
-public class UserDAO {
+public class UserDAO { // New DAO class for User entity
     public void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS users (" +
                      "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -17,7 +17,7 @@ public class UserDAO {
         }
     }
 
-    public static void addUser(User user) {
+    public static void addUser(User user) { // Method to add a new user
         String sql = "INSERT INTO users(username, password) VALUES(?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -29,7 +29,7 @@ public class UserDAO {
         }
     }
 
-    public User getUserByUsername(String username) {
+    public User getUserByUsername(String username) { // Method to fetch user by username
         String sql = "SELECT * FROM users WHERE username = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
