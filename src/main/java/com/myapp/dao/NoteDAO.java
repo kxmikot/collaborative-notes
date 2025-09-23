@@ -2,7 +2,8 @@ package com.myapp.dao;
 
 import java.sql.*;
 import com.myapp.model.Note;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class NoteDAO { // New DAO class for Note entity
     public void createTable() { // Method to create notes table if it doesn't exist
@@ -49,5 +50,58 @@ public class NoteDAO { // New DAO class for Note entity
                 }
             } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public List<Note> getNotesByUserId(int userId) { // Method for getting notes by user id 
+        List<Note> notes = new ArrayList<>();
+        String sql = "SELECT * FROM notes WHERE user_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, userId);
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    notes.add(new Note(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("title"),
+                        rs.getString("content")
+                    ));
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return notes;
+    }
+
+    public Note getNoteById(int id) {
+        String sql = "SELECT * FROM notes WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return new Note(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("title"),
+                        rs.getString("content")
+                    );
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void deleteNote(int id) {
+        String sql = "DELETE FROM notes WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
